@@ -56,6 +56,7 @@ export const ui = {
     'status.en-progreso': 'En progreso',
     'status.en-pausa': 'En pausa',
     'status.terminado': 'Terminado',
+    'status.deprecado': 'Deprecado',
 
     'email.soon': 'Próximamente',
     'footer.builtwith': 'Hecho con Astro · estilo wiki',
@@ -109,6 +110,7 @@ export const ui = {
     'status.en-progreso': 'In progress',
     'status.en-pausa': 'On hold',
     'status.terminado': 'Completed',
+    'status.deprecado': 'Deprecated',
 
     'email.soon': 'Coming soon',
     'footer.builtwith': 'Built with Astro · wiki style',

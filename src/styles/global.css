@@ -34,23 +34,24 @@
 }
 
 :root[data-theme="dark"] {
-  --bg: #0f1318;
-  --bg-subtle: #171c22;
-  --bg-card: #1a2027;
-  --bg-header: #15191f;
-  --bg-code: #20262e;
-  --text: #e8eaed;
-  --text-muted: #9aa3ad;
-  --border: #39414a;
-  --border-light: #2a313a;
-  --border-faint: #232a32;
-  --link: #6aa3ff;
+  /* Negro neutro casi total (v1 — el pulido fino llega en la v2) */
+  --bg: #060606;
+  --bg-subtle: #0d0d0d;
+  --bg-card: #111113;
+  --bg-header: #0a0a0a;
+  --bg-code: #161618;
+  --text: #ededed;
+  --text-muted: #8c8c8c;
+  --border: #2a2a2e;
+  --border-light: #1f1f22;
+  --border-faint: #151517;
+  --link: #5e9dff;
   --link-visited: #b89ae6;
-  --link-hover: #99c0ff;
-  --link-red: #ff6e6e;
-  --accent: #6aa3ff;
-  --accent-soft: #1b2738;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 18px rgba(0, 0, 0, 0.35);
+  --link-hover: #8fbaff;
+  --link-red: #ff6b6b;
+  --accent: #5e9dff;
+  --accent-soft: #13151c;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.7), 0 8px 24px rgba(0, 0, 0, 0.55);
 }
 
 /* ---------- Base ---------- */
@@ -448,6 +449,11 @@ main {
   background: #e8f0ff;
   border-color: #b6cdfb;
 }
+.badge.deprecado {
+  color: #9a3a3a;
+  background: #fbeaea;
+  border-color: #e8c4c4;
+}
 :root[data-theme="dark"] .badge.idea {
   color: #f0c75e;
   background: #2a2410;
@@ -467,6 +473,11 @@ main {
   color: #7fb0ff;
   background: #12203a;
   border-color: #284a86;
+}
+:root[data-theme="dark"] .badge.deprecado {
+  color: #e09a9a;
+  background: #231414;
+  border-color: #4a2a2a;
 }
 
 .tag-list {
@@ -628,7 +639,7 @@ main {
   background: linear-gradient(160deg, #ffecec, var(--bg-card) 75%);
 }
 :root[data-theme="dark"] .yt {
-  background: linear-gradient(160deg, #2a1414, var(--bg-card) 75%);
+  background: linear-gradient(160deg, #1a0d0d, var(--bg-card) 78%);
 }
 .yt .subs {
   font-size: 1.6rem;

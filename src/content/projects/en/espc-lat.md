@@ -2,8 +2,8 @@
 title: "espc.lat"
 description: "My personal wiki: an 'about me' and the place where I document the projects I'm building."
 status: en-progreso
-featured: true
-order: 1
+featured: false
+order: 10
 started: 2026-06-08
 tags: ["Web", "Astro", "Design"]
 links:

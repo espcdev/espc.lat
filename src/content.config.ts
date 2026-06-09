@@ -11,7 +11,9 @@ const projects = defineCollection({
     z.object({
       title: z.string(),
       description: z.string(),
-      status: z.enum(['idea', 'en-progreso', 'en-pausa', 'terminado']).default('idea'),
+      status: z
+        .enum(['idea', 'en-progreso', 'en-pausa', 'terminado', 'deprecado'])
+        .default('idea'),
       tags: z.array(z.string()).default([]),
       // Fecha de inicio del proyecto (YYYY-MM-DD)
       started: z.coerce.date().optional(),
