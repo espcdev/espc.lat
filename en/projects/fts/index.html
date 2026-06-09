@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="en" data-theme="light"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>FTS · ESPC</title><meta name="description" content="A video game made with AI and some of my own pixel art, built in LÖVE2D and playable from the web. Functional on PC; the web version is on hold."><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="canonical" href="https://espc.lat/en/projects/fts/"><meta name="generator" content="Astro v5.18.2"><meta name="theme-color" content="#f8f9fa" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#070707" media="(prefers-color-scheme: dark)"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:title" content="FTS · ESPC"><meta property="og:description" content="A video game made with AI and some of my own pixel art, built in LÖVE2D and playable from the web. Functional on PC; the web version is on hold."><meta property="og:url" content="https://espc.lat/en/projects/fts/"><meta property="og:image" content="https://espc.lat/favicon.svg"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary"><!-- Evita el parpadeo de tema: se ejecuta antes de pintar --><script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('espc-theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script><link rel="stylesheet" href="/_astro/about.DmmQifJg.css"></head> <body> <div class="layout"> <header class="site-header"> <div class="container"> <a class="brand" href="/en/" aria-label="ESPC — inicio"> <svg class="logo logo" viewBox="0 0 252 64" role="img" aria-label="ESPC" xmlns="http://www.w3.org/2000/svg"> <title>ESPC</title> <!-- Emblema: globo con montañas --> <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"> <circle cx="32" cy="32" r="22.5"></circle> <ellipse cx="32" cy="32" rx="9" ry="22.5" stroke-width="2.4"></ellipse> <line x1="9.5" y1="32" x2="54.5" y2="32" stroke-width="2.4"></line> <line x1="14" y1="20" x2="50" y2="20" stroke-width="2.1"></line> </g> <!-- Montañas dentro del globo --> <path d="M12.5 41 L24 28 L31 35 L39 25 L51.5 41 Z" fill="currentColor" stroke="none"></path> <text x="70" y="46" font-family="'Arial Black', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="900" font-size="42" letter-spacing="-1" fill="currentColor">
+ESPC
+</text> </svg> <span class="brand-sub">The personal wiki of ESPC</span> </a> <nav class="nav" aria-label="Principal"> <a href="/en/"> Main Page </a><a href="/en/about"> About </a><a href="/en/projects" aria-current="page"> Projects </a> </nav> <div class="header-tools"> <a class="icon-btn" href="/es/projects/fts/" hreflang="es" aria-label="Español"> ES </a> <button class="icon-btn theme-toggle" type="button" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"> <span class="sun" aria-hidden="true">☀</span> <span class="moon" aria-hidden="true">☾</span> </button> </div> </div> </header> <main> <div class="container">  <article class="article"> <aside class="infobox" aria-label="FTS"> <div class="infobox-title">FTS</div>   <table> <tbody> <tr> <th scope="row">Type</th> <td> Project </td> </tr><tr> <th scope="row">Status</th> <td> <span class="badge en-pausa">On hold</span> </td> </tr><tr> <th scope="row">Tags</th> <td> Game<br>LÖVE2D<br>Pixel art </td> </tr><tr> <th scope="row">Links</th> <td> <a href="https://fts-web.pages.dev/" class="ext" target="_blank" rel="noopener"> Web version (may break) </a> </td> </tr> </tbody> </table> </aside> <h1 class="article-title">FTS</h1> <p class="article-subtitle">A video game made with AI and some of my own pixel art, built in LÖVE2D and playable from the web. Functional on PC; the web version is on hold.</p> <h2 id="what-is-it">What is it?</h2>
+<p><strong>FTS</strong> is a video game I made with <strong>AI</strong> and a bit of my own <strong>pixel art</strong>.
+It’s built in <strong>LÖVE2D</strong> (Lua) and is <strong>playable from the browser</strong>.</p>
+<h2 id="status">Status</h2>
+<p>It’s a project I <strong>plan to continue</strong>. For now:</p>
+<ul>
+<li>✅ <strong>Functional on PC</strong> (desktop version).</li>
+<li>⏸️ <strong>On hold on the web</strong>.</li>
+</ul>
+<blockquote>
+<p>⚠️ The web version may break and likely won’t be playable until an upcoming patch.
+I’m not sharing a link to the desktop version yet because it’s still under full
+development.</p>
+</blockquote> <hr> <p class="muted"> <a href="/en/projects">← Projects</a> </p> </article>  </div> </main> <footer class="site-footer"> <div class="container"> <span>© 2026 ESPC · espc.lat</span> <span> Built with Astro · wiki style ·
+<a href="/en/about">About</a> ·
+<a href="https://github.com/espcdev" class="ext" rel="me noopener" target="_blank">GitHub</a> </span> </div> </footer> </div> <script>
+      (function () {
+        var btn = document.getElementById('theme-toggle');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+          var cur = document.documentElement.getAttribute('data-theme');
+          var next = cur === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          try {
+            localStorage.setItem('espc-theme', next);
+          } catch (e) {}
+        });
+      })();
+    </script> </body> </html>
