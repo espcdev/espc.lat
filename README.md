@@ -70,10 +70,37 @@ cambiar el componente para usarlo.
 
 ## 🌐 Despliegue y dominio
 
-- El sitio se publica solo en **GitHub Pages** con cada `push` a `main`
-  (ver `.github/workflows/deploy.yml`).
-- El dominio `espc.lat` se conecta vía DNS en Namecheap. El archivo
-  `public/CNAME` ya contiene el dominio.
+El sitio vive en **GitHub Pages** (rama `gh-pages`) con el dominio `espc.lat`.
+
+### Publicar cambios
+
+```bash
+npm run deploy
+```
+
+Eso compila el sitio y sube `dist/` a la rama `gh-pages`. GitHub Pages lo
+actualiza en ~1 minuto.
+
+> **Nota:** hay un workflow de GitHub Actions (`.github/workflows/deploy.yml`)
+> para auto-desplegar en cada `push`, pero está **deshabilitado** porque la
+> cuenta tenía un bloqueo de facturación que desactiva Actions. Si resuelves el
+> billing en <https://github.com/settings/billing>, se puede reactivar el
+> workflow y cambiar la fuente de Pages de "rama" a "GitHub Actions" para que el
+> deploy sea automático otra vez.
+
+### DNS (Namecheap)
+
+El dominio apunta a GitHub Pages con estos registros (pestaña *Advanced DNS*):
+
+| Tipo  | Host | Valor              |
+| ----- | ---- | ------------------ |
+| A     | `@`  | `185.199.108.153`  |
+| A     | `@`  | `185.199.109.153`  |
+| A     | `@`  | `185.199.110.153`  |
+| A     | `@`  | `185.199.111.153`  |
+| CNAME | `www`| `espcdev.github.io`|
+
+El archivo `public/CNAME` fija el dominio personalizado al desplegar.
 
 ---
 
