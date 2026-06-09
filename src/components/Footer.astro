@@ -1,0 +1,23 @@
+---
+import { useTranslations, type Locale } from '../data/i18n';
+import { profile } from '../data/profile';
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <span>© {year} {profile.brand} · espc.lat</span>
+    <span>
+      {t('footer.builtwith')} ·
+      <a href={`/${lang}/about`}>{t('nav.about')}</a> ·
+      <a href={profile.socials[0]?.url} class="ext" rel="me noopener" target="_blank"
+        >GitHub</a
+      >
+    </span>
+  </div>
+</footer>

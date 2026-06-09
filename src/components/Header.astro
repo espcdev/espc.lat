@@ -1,0 +1,60 @@
+---
+import Logo from './Logo.astro';
+import { useTranslations, alternateUrl, type Locale } from '../data/i18n';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const path = Astro.url.pathname;
+const other: Locale = lang === 'es' ? 'en' : 'es';
+const altHref = alternateUrl(Astro.url, other);
+
+const nav = [
+  { href: `/${lang}/`, key: 'nav.home' as const },
+  { href: `/${lang}/about`, key: 'nav.about' as const },
+  { href: `/${lang}/projects`, key: 'nav.projects' as const },
+];
+
+function isActive(href: string) {
+  const clean = (s: string) => s.replace(/\/$/, '');
+  if (href.endsWith('/')) return clean(path) === clean(href);
+  return clean(path) === clean(href) || path.startsWith(href + '/');
+}
+---
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href={`/${lang}/`} aria-label="ESPC — inicio">
+      <Logo class="logo" />
+      <span class="brand-sub">{t('site.tagline')}</span>
+    </a>
+
+    <nav class="nav" aria-label="Principal">
+      {
+        nav.map((item) => (
+          <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+            {t(item.key)}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="header-tools">
+      <a class="icon-btn" href={altHref} hreflang={other} aria-label={t('lang.switch')}>
+        {other.toUpperCase()}
+      </a>
+      <button
+        class="icon-btn theme-toggle"
+        type="button"
+        id="theme-toggle"
+        aria-label={t('theme.toggle')}
+        title={t('theme.toggle')}
+      >
+        <span class="sun" aria-hidden="true">☀</span>
+        <span class="moon" aria-hidden="true">☾</span>
+      </button>
+    </div>
+  </div>
+</header>

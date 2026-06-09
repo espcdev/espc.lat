@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Logo from '../Logo.astro';
+import { profile } from '../../data/profile';
+import { useTranslations, type Locale, type UIKey } from '../../data/i18n';
+import { inlineMd } from '../../data/format';
+import { getProjects, getFeatured } from '../../data/projects';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const projects = await getProjects(lang);
+const featured = await getFeatured(lang);
+const featuredList = featured.length ? featured : projects.slice(0, 2);
+const youtube = profile.socials.find((s) => s.label === 'YouTube');
+const github = profile.socials.find((s) => s.label === 'GitHub');
+const roles = profile.roles[lang].join(' · ');
+---
+
+<BaseLayout title={profile.brand} lang={lang} description={profile.tagline[lang]}>
+  <div class="page-head">
+    <h1>{t('home.intro.title')}</h1>
+    <p class="sub">{t('site.tagline')}</p>
+  </div>
+
+  <div class="bento">
+    <!-- Hero / presentación -->
+    <section class="box hero col-2 row-2">
+      <Logo class="logo" />
+      <h2>{profile.brand}</h2>
+      <p class="tagline">{profile.tagline[lang]}</p>
+      <p set:html={inlineMd(profile.bio[lang])} />
+      <div class="spacer"></div>
+      <a class="more" href={`/${lang}/about`}>{t('home.about.title')} →</a>
+    </section>
+
+    <!-- Datos rápidos -->
+    <section class="box col-2">
+      <h2 class="box-head"><span class="ico">◆</span>{t('home.facts.title')}</h2>
+      <ul class="facts-list">
+        <li><span class="k">{t('infobox.known')}</span><span class="v">{profile.brand}</span></li>
+        <li>
+          <span class="k">{t('infobox.country')}</span>
+          <span class="v">{profile.flag} {profile.country[lang]}</span>
+        </li>
+        <li><span class="k">{t('infobox.occupation')}</span><span class="v">{roles}</span></li>
+        <li><span class="k">{t('infobox.interests')}</span><span class="v">{profile.interests[lang].join(', ')}</span></li>
+      </ul>
+      <div class="chip-row">
+        {profile.skills.map((s) => <span class="chip">{s}</span>)}
+      </div>
+    </section>
+
+    <!-- Proyectos destacados -->
+    <section class="box col-2">
+      <h2 class="box-head"><span class="ico">★</span>{t('home.featured.title')}</h2>
+      {
+        featuredList.length === 0 ? (
+          <p class="muted">{t('projects.empty')}</p>
+        ) : (
+          <ul class="facts-list">
+            {featuredList.map((p) => (
+              <li style="display:block">
+                <a href={`/${lang}/projects/${p.slug}`} style="font-weight:600">{p.data.title}</a>
+                <span class={`badge ${p.data.status}`} style="margin-left:.4rem">
+                  {t(`status.${p.data.status}` as UIKey)}
+                </span>
+                <div class="muted" style="font-size:.88rem">{p.data.description}</div>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      <div class="spacer"></div>
+      <a class="more" href={`/${lang}/projects`}>{t('home.viewall')} →</a>
+    </section>
+
+    <!-- ¿Sabías que…? -->
+    <section class="box col-2">
+      <h2 class="box-head"><span class="ico">?</span>{t('home.dyk.title')}</h2>
+      <ul>
+        <li set:html={inlineMd(
+          lang === 'es'
+            ? '…que ESPC apuesta por **hacer más fácil el presente y el futuro**.'
+            : '…that ESPC bets on **making the present and future easier**.'
+        )} />
+        <li>{lang === 'es'
+          ? '…que este sitio es una wiki personal: crece con cada proyecto nuevo.'
+          : '…that this site is a personal wiki: it grows with every new project.'}</li>
+        <li>{lang === 'es'
+          ? `…que ESPC es un “aprendev” — un dev que nunca deja de aprender.`
+          : '…that ESPC is an “aprendev” — a dev who never stops learning.'}</li>
+      </ul>
+    </section>
+
+    <!-- YouTube -->
+    <section class="box yt col-2">
+      <h2 class="box-head"><span class="ico">▶</span>{t('home.channel.title')}</h2>
+      {youtube && (
+        <>
+          <p class="subs">
+            {profile.youtubeSubs}
+            <small>{youtube.meta?.[lang]}</small>
+          </p>
+          <p><a href={youtube.url} class="ext" target="_blank" rel="me noopener">{youtube.handle}</a></p>
+        </>
+      )}
+      <div class="spacer"></div>
+      <a class="more ext" href={youtube?.url} target="_blank" rel="noopener">
+        {lang === 'es' ? 'Ver el canal' : 'Visit the channel'} →
+      </a>
+    </section>
+
+    <!-- CTA proyectos -->
+    <section class="box col-2">
+      <h2 class="box-head"><span class="ico">⌘</span>{t('home.projects.title')}</h2>
+      <p>
+        {lang === 'es'
+          ? `Hay ${projects.length} ${projects.length === 1 ? 'proyecto documentado' : 'proyectos documentados'} en la wiki.`
+          : `There ${projects.length === 1 ? 'is' : 'are'} ${projects.length} ${projects.length === 1 ? 'documented project' : 'documented projects'} in the wiki.`}
+      </p>
+      {github && (
+        <p><a href={github.url} class="ext" target="_blank" rel="me noopener">github.com/{github.handle}</a></p>
+      )}
+      <div class="spacer"></div>
+      <a class="more" href={`/${lang}/projects`}>{t('home.viewall')} →</a>
+    </section>
+  </div>
+</BaseLayout>

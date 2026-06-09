@@ -1,0 +1,55 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Infobox, { type InfoRow } from '../Infobox.astro';
+import { useTranslations, type Locale, type UIKey } from '../../data/i18n';
+import { formatDate } from '../../data/format';
+import type { ProjectEntry } from '../../data/projects';
+
+interface Props {
+  entry: ProjectEntry;
+  lang: Locale;
+}
+const { entry, lang } = Astro.props;
+const t = useTranslations(lang);
+const { data } = entry;
+const { Content } = await render(entry);
+
+const rows: InfoRow[] = [
+  { label: t('infobox.type'), items: [{ text: t('infobox.project') }] },
+  {
+    label: t('infobox.status'),
+    items: [{ text: t(`status.${data.status}` as UIKey), badge: data.status }],
+  },
+  ...(data.started
+    ? [{ label: t('infobox.started'), items: [{ text: formatDate(data.started, lang) }] }]
+    : []),
+  ...(data.tags.length
+    ? [{ label: t('infobox.tags'), items: data.tags.map((tag) => ({ text: tag })) }]
+    : []),
+  ...(data.links.length
+    ? [
+        {
+          label: t('infobox.links'),
+          items: data.links.map((l) => ({ text: l.label, href: l.url, ext: true })),
+        },
+      ]
+    : []),
+];
+---
+
+<BaseLayout title={data.title} lang={lang} description={data.description}>
+  <article class="article">
+    <Infobox title={data.title} rows={rows} />
+
+    <h1 class="article-title">{data.title}</h1>
+    <p class="article-subtitle">{data.description}</p>
+
+    <Content />
+
+    <hr />
+    <p class="muted">
+      <a href={`/${lang}/projects`}>← {t('projects.title')}</a>
+    </p>
+  </article>
+</BaseLayout>

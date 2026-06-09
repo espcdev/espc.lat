@@ -1,0 +1,50 @@
+---
+// Logo de ESPC (homenaje a la marca: globo + montañas + wordmark).
+// Es un SVG inline que usa `currentColor`, así se adapta solo al modo oscuro.
+// ¿Quieres tu PNG exacto? Guárdalo en /public/logo.png y avísame para cambiarlo.
+interface Props {
+  class?: string;
+  variant?: 'full' | 'mark';
+  title?: string;
+}
+const { class: className = '', variant = 'full', title = 'ESPC' } = Astro.props;
+const viewBox = variant === 'mark' ? '0 0 64 64' : '0 0 252 64';
+---
+
+<svg
+  class={`logo ${className}`}
+  viewBox={viewBox}
+  role="img"
+  aria-label={title}
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <title>{title}</title>
+  <!-- Emblema: globo con montañas -->
+  <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+    <circle cx="32" cy="32" r="22.5" />
+    <ellipse cx="32" cy="32" rx="9" ry="22.5" stroke-width="2.4" />
+    <line x1="9.5" y1="32" x2="54.5" y2="32" stroke-width="2.4" />
+    <line x1="14" y1="20" x2="50" y2="20" stroke-width="2.1" />
+  </g>
+  <!-- Montañas dentro del globo -->
+  <path
+    d="M12.5 41 L24 28 L31 35 L39 25 L51.5 41 Z"
+    fill="currentColor"
+    stroke="none"
+  />
+  {
+    variant === 'full' && (
+      <text
+        x="70"
+        y="46"
+        font-family="'Arial Black', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+        font-weight="900"
+        font-size="42"
+        letter-spacing="-1"
+        fill="currentColor"
+      >
+        ESPC
+      </text>
+    )
+  }
+</svg>

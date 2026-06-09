@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Infobox, { type InfoRow } from '../Infobox.astro';
+import { profile } from '../../data/profile';
+import { useTranslations, type Locale } from '../../data/i18n';
+import { inlineMd } from '../../data/format';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const rows: InfoRow[] = [
+  { label: t('infobox.known'), items: [{ text: profile.brand }] },
+  ...(profile.showRealName
+    ? [{ label: t('infobox.realname'), items: [{ text: profile.realName }] }]
+    : []),
+  { label: t('infobox.country'), items: [{ text: `${profile.flag} ${profile.country[lang]}` }] },
+  { label: t('infobox.occupation'), items: profile.roles[lang].map((r) => ({ text: r })) },
+  { label: t('infobox.skills'), items: profile.skills.map((s) => ({ text: s })) },
+  { label: t('infobox.interests'), items: profile.interests[lang].map((s) => ({ text: s })) },
+  {
+    label: t('infobox.links'),
+    items: profile.socials.map((s) => ({
+      text: s.handle ?? s.label,
+      href: s.url,
+      ext: true,
+    })),
+  },
+];
+const youtube = profile.socials.find((s) => s.label === 'YouTube');
+const github = profile.socials.find((s) => s.label === 'GitHub');
+---
+
+<BaseLayout title={t('about.title')} lang={lang} description={profile.tagline[lang]}>
+  <article class="article">
+    <Infobox title={profile.brand} caption={profile.tagline[lang]} rows={rows} useLogo={true} />
+
+    <h1 class="article-title">{t('about.title')}</h1>
+    <p class="article-subtitle">{t('about.subtitle')}</p>
+
+    <p class="lead" set:html={inlineMd(profile.bio[lang])} />
+
+    <h2>{t('about.section.who')}</h2>
+    {
+      lang === 'es' ? (
+        <p>
+          <strong>ESPC</strong> es el nombre con el que me muevo en internet. Soy de{' '}
+          <strong>México</strong> 🇲🇽 y me defino como <em>aprendev</em>: un desarrollador en
+          constante aprendizaje, que cree que la mejor forma de aprender es construyendo cosas
+          de verdad y documentándolas por el camino. Este sitio es justo eso: mi wiki personal,
+          una bitácora pública de quién soy y qué estoy creando.
+        </p>
+      ) : (
+        <p>
+          <strong>ESPC</strong> is the name I go by online. I'm from <strong>Mexico</strong> 🇲🇽
+          and I describe myself as an <em>aprendev</em>: a developer who is always learning and
+          believes the best way to learn is by building real things and documenting them along
+          the way. This site is exactly that: my personal wiki, a public log of who I am and what
+          I'm creating.
+        </p>
+      )
+    }
+
+    <h2>{t('about.section.focus')}</h2>
+    {
+      lang === 'es' ? (
+        <p>
+          Mi especialidad es la <strong>IA general</strong>: el <em>prompting</em>, el desarrollo
+          asistido por inteligencia artificial y, en general, exprimir estas herramientas para
+          crear más rápido y mejor. Lo combino con mi interés por el <strong>desarrollo</strong> y
+          el <strong>diseño</strong>, y una mano puesta en el <strong>UI/UX</strong>. Mi objetivo
+          de fondo es simple: <strong>hacer más fácil el presente y el futuro</strong>, una
+          herramienta y un proyecto a la vez.
+        </p>
+      ) : (
+        <p>
+          My specialty is <strong>general AI</strong>: <em>prompting</em>, AI-assisted development
+          and, broadly, squeezing these tools to create faster and better. I pair that with my
+          interest in <strong>development</strong> and <strong>design</strong>, and a hand in{' '}
+          <strong>UI/UX</strong>. My underlying goal is simple: <strong>make the present and
+          future easier</strong>, one tool and one project at a time.
+        </p>
+      )
+    }
+
+    <h2>{t('about.section.contact')}</h2>
+    <ul>
+      {github && (
+        <li>
+          GitHub:{' '}
+          <a href={github.url} class="ext" target="_blank" rel="me noopener">
+            {github.handle}
+          </a>
+        </li>
+      )}
+      {youtube && (
+        <li>
+          YouTube:{' '}
+          <a href={youtube.url} class="ext" target="_blank" rel="me noopener">
+            {youtube.handle}
+          </a>{' '}
+          <span class="muted">({profile.youtubeSubs} {youtube.meta?.[lang]})</span>
+        </li>
+      )}
+      <li>
+        Email:{' '}
+        {profile.email ? (
+          <a href={`mailto:${profile.email}`}>{profile.email}</a>
+        ) : (
+          <span class="muted">{t('email.soon')}</span>
+        )}
+      </li>
+    </ul>
+  </article>
+</BaseLayout>

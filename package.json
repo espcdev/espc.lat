@@ -1,0 +1,17 @@
+{
+  "name": "espc-lat",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "espc.lat — la wiki personal de ESPC (Elias Puente)",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.7.0"
+  }
+}

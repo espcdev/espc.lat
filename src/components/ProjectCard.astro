@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import { useTranslations, type Locale, type UIKey } from '../data/i18n';
+
+interface Props {
+  lang: Locale;
+  slug: string;
+  title: string;
+  description: string;
+  status: string;
+  tags?: string[];
+  cover?: ImageMetadata;
+}
+const { lang, slug, title, description, status, tags = [], cover } = Astro.props;
+const t = useTranslations(lang);
+const statusLabel = t(`status.${status}` as UIKey);
+const href = `/${lang}/projects/${slug}`;
+---
+
+<a class="project-card" href={href}>
+  <div class="pc-cover">
+    {
+      cover ? (
+        <Image src={cover} alt={title} width={640} height={360} />
+      ) : (
+        <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M4 5h16v14H4z" />
+          <path d="M4 9h16M9 5v14" />
+        </svg>
+      )
+    }
+  </div>
+  <div class="pc-body">
+    <h3>{title}</h3>
+    <p>{description}</p>
+    <div class="pc-meta">
+      <span class={`badge ${status}`}>{statusLabel}</span>
+      {tags.length > 0 && <span class="tag">{tags[0]}</span>}
+    </div>
+  </div>
+</a>

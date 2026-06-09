@@ -1,0 +1,65 @@
+---
+import Logo from './Logo.astro';
+
+export interface InfoItem {
+  text: string;
+  href?: string;
+  ext?: boolean;
+  badge?: string; // clase de estado: idea | en-progreso | en-pausa | terminado
+}
+export interface InfoRow {
+  label: string;
+  items: InfoItem[];
+}
+interface Props {
+  title: string;
+  caption?: string;
+  rows: InfoRow[];
+  useLogo?: boolean;
+}
+const { title, caption, rows, useLogo = false } = Astro.props;
+---
+
+<aside class="infobox" aria-label={title}>
+  <div class="infobox-title">{title}</div>
+  {
+    useLogo && (
+      <div class="infobox-image">
+        <Logo class="logo" title={title} />
+      </div>
+    )
+  }
+  {caption && <div class="infobox-caption">{caption}</div>}
+  <table>
+    <tbody>
+      {
+        rows.map((row) => (
+          <tr>
+            <th scope="row">{row.label}</th>
+            <td>
+              {row.items.map((it, i) => (
+                <>
+                  {i > 0 && <br />}
+                  {it.badge ? (
+                    <span class={`badge ${it.badge}`}>{it.text}</span>
+                  ) : it.href ? (
+                    <a
+                      href={it.href}
+                      class={it.ext ? 'ext' : undefined}
+                      target={it.ext ? '_blank' : undefined}
+                      rel={it.ext ? 'noopener' : undefined}
+                    >
+                      {it.text}
+                    </a>
+                  ) : (
+                    it.text
+                  )}
+                </>
+              ))}
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</aside>
